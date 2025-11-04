@@ -4,6 +4,6 @@ import Cheatsheet from "../../components/cheatsheets/Cheatsheet.astro";
 import { gitCheatsheet } from "../../data/cheatsheets/git";
 ---
 
-<Layout title={gitCheatsheet.title}>
+<Layout title=`${gitCheatsheet.title} - CodeDomus`>
   <Cheatsheet {...gitCheatsheet} />
 </Layout>

@@ -1,6 +1,6 @@
 ---
 import Layout from "../../layouts/LayoutWithNav.astro";
-
+const title = "Cheatsheets";
 const cheatsheets = [
   {
     icon: "🌱",
@@ -26,7 +26,7 @@ const cheatsheets = [
 ];
 ---
 
-<Layout title="Cheatsheets">
+<Layout title=`${title} - CodeDomus`>
   <section class="container mx-auto px-4 py-20">
     <h1 class="mb-10 text-center text-4xl font-extrabold tracking-tight">Cheatsheets</h1>
     <div class="grid grid-cols-1 gap-8 sm:grid-cols-2 md:grid-cols-3">
