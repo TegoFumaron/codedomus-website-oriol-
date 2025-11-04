@@ -1,0 +1,188 @@
+---
+/* Slider ☀️ ●———🌙 usando tokens del @theme */
+const myScript = `
+<script is:inline>
+  (function () {
+    try {
+      const ls = localStorage.getItem("theme");
+      const prefersDark = window.matchMedia("(prefers-color-scheme: dark)").matches;
+      const mode = ls ? ls : prefersDark ? "dark" : "light";
+      const root = document.documentElement;
+      root.classList.toggle("dark", mode === "dark");
+      root.setAttribute("data-theme", mode);
+    } catch {}
+  })();
+</script>
+`;
+---
+
+<Fragment slot="head" set:html={myScript} />
+
+<button
+  id="theme-toggle"
+  class="relative isolate flex h-10 w-20 items-center justify-between rounded-full px-2 focus:outline-none"
+  aria-label="Toggle dark mode"
+>
+  <!-- Pista LIGHT (se cruza con la DARK por opacidad) -->
+  <span
+    class="pointer-events-none absolute inset-0 rounded-full opacity-100 transition-opacity duration-700 dark:opacity-0"
+    style="background: linear-gradient(to right, var(--color-background-card), var(--color-background-body));"
+  ></span>
+
+  <!-- Pista DARK -->
+  <span
+    class="pointer-events-none absolute inset-0 rounded-full opacity-0 transition-opacity duration-700 dark:opacity-100"
+    style="background: linear-gradient(to right, var(--color-background-dark), color-mix(in srgb, var(--color-background-dark) 85%, black));"
+  ></span>
+
+  <!-- Bordecito sutil encima de los fondos (puedes cambiar si quieres tokenizar el ring) -->
+  <span
+    class="pointer-events-none absolute inset-0 rounded-full ring-1 ring-black/10 dark:ring-white/10"
+  ></span>
+
+  <!-- Iconos extremos -->
+  <span class="relative z-10 text-base select-none">☀️</span>
+  <span class="relative z-10 text-base select-none">🌙</span>
+
+  <!-- Knob deslizante con tokens -->
+  <span
+    id="theme-knob"
+    class="knob absolute top-1 left-1 z-10 h-8 w-8 transform rounded-full bg-(--color-primary-on) shadow-md transition-transform duration-300 ease-out will-change-transform dark:translate-x-10 dark:bg-background-card"
+  ></span>
+</button>
+
+<script is:inline>
+  const root = document.documentElement;
+
+  function applyTheme(mode) {
+    const isDark = mode === "dark";
+    root.classList.toggle("dark", isDark);
+    root.setAttribute("data-theme", mode);
+    try {
+      localStorage.setItem("theme", mode);
+    } catch {}
+  }
+
+  // init (por si entras sin el script del head)
+  (function init() {
+    const ls = localStorage.getItem("theme");
+    const prefersDark = window.matchMedia("(prefers-color-scheme: dark)").matches;
+    applyTheme(ls ? ls : prefersDark ? "dark" : "light");
+  })();
+
+  // click / teclado
+  const btn = document.getElementById("theme-toggle");
+  const knob = document.getElementById("theme-knob");
+
+  function toggle() {
+    const next = root.classList.contains("dark") ? "light" : "dark";
+    applyTheme(next);
+    // rastro
+    knob?.classList.remove("trail");
+    void knob?.offsetWidth;
+    knob?.classList.add("trail");
+  }
+
+  btn?.addEventListener("click", toggle);
+  btn?.addEventListener("keydown", (e) => {
+    if (e.key === "Enter" || e.key === " ") {
+      e.preventDefault();
+      toggle();
+    }
+  });
+
+  // si el SO cambia y no hay preferencia guardada
+  const mql = window.matchMedia("(prefers-color-scheme: dark)");
+  mql.addEventListener?.("change", (e) => {
+    if (!("theme" in localStorage)) applyTheme(e.matches ? "dark" : "light");
+  });
+</script>
+
+<style>
+  /* Knob con rastro de luz usando tus tokens */
+  .knob {
+    position: absolute;
+  }
+
+  .knob::before,
+  .knob::after {
+    content: "";
+    position: absolute;
+    pointer-events: none;
+    top: 50%;
+    transform: translateY(-50%);
+    border-radius: 9999px;
+    opacity: 0;
+    filter: blur(8px);
+  }
+
+  /* Rastro cercano (light: usa --color-accent) */
+  .knob::before {
+    left: -18px;
+    width: 42px;
+    height: 14px;
+    background: radial-gradient(closest-side, var(--color-accent), transparent 70%);
+  }
+
+  /* Rastro amplio (light: más suave con el mismo token) */
+  .knob::after {
+    left: -30px;
+    width: 70px;
+    height: 20px;
+    background: radial-gradient(
+      closest-side,
+      color-mix(in srgb, var(--color-accent) 50%, transparent),
+      transparent 80%
+    );
+    filter: blur(12px);
+  }
+
+  /* Animación al togglear */
+  .knob.trail::before {
+    animation: trailNear 420ms ease-out forwards;
+  }
+  .knob.trail::after {
+    animation: trailFar 520ms ease-out forwards;
+  }
+
+  @keyframes trailNear {
+    0% {
+      opacity: 0.8;
+      transform: translateY(-50%) scaleX(0.8);
+    }
+    60% {
+      opacity: 0.35;
+      transform: translateY(-50%) scaleX(1.2);
+    }
+    100% {
+      opacity: 0;
+      transform: translateY(-50%) scaleX(1.6);
+    }
+  }
+  @keyframes trailFar {
+    0% {
+      opacity: 0.5;
+      transform: translateY(-50%) scaleX(1);
+    }
+    70% {
+      opacity: 0.25;
+      transform: translateY(-50%) scaleX(1.5);
+    }
+    100% {
+      opacity: 0;
+      transform: translateY(-50%) scaleX(2);
+    }
+  }
+
+  /* En DARK, el rastro usa --color-primary (que en tu mapping será dorado) */
+  :root.dark .knob::before {
+    background: radial-gradient(closest-side, var(--color-primary), transparent 70%);
+  }
+  :root.dark .knob::after {
+    background: radial-gradient(
+      closest-side,
+      color-mix(in srgb, var(--color-primary) 50%, transparent),
+      transparent 80%
+    );
+  }
+</style>

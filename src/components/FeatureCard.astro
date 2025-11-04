@@ -1,11 +1,15 @@
 ---
-const { icon, title, description } = Astro.props;
+const { icon, title, description, url } = Astro.props;
 ---
 
 <div
-  class="flex cursor-pointer flex-col items-start gap-4 rounded-2xl bg-background-card p-6 shadow-card transition-all duration-200 hover:-translate-y-1 hover:bg-imperial-red/5 hover:shadow-lg hover:ring-2 hover:ring-aureus-gold"
+  class="dark:hover:bg-[color-mix(in_oklab,var(--color-primary)/10%,transparent) flex cursor-pointer flex-col items-start gap-4 rounded-2xl bg-background-card p-6 shadow-card transition-all duration-200 hover:-translate-y-1 hover:bg-[color-mix(in_oklab,var(--color-background-card),white_10%)] hover:shadow-lg hover:ring-2 hover:ring-(--color-accent) dark:hover:ring-(--color-accent)"
 >
-  <div class="w-full text-center text-3xl">{icon}</div>
-  <h3 class="text-senate w-full text-center text-2xl font-semibold">{title}</h3>
-  <p class="w-full text-center">{description}</p>
+  <a href={url} class="w-full">
+    <div class="w-full text-center text-3xl text-(--color-text-default)">{icon}</div>
+    <h3 class="text-senate w-full text-center text-2xl font-semibold text-(--color-text-default)">
+      {title}
+    </h3>
+    <p class="w-full text-center text-(--color-text-muted)">{description}</p>
+  </a>
 </div>

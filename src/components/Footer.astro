@@ -1,19 +1,25 @@
-<footer class="text-parchment custom-gradient mt-16 py-10">
+<footer class="custom-gradient mt-16 py-10 text-(--color-text-default)">
   <div class="container mx-auto flex flex-col items-center justify-between gap-6 px-4 md:flex-row">
-    <div class="flex items-center gap-3">
-      <img src="/favicon.svg" alt="CodeDomus logo" class="h-8 w-8" />
-      <span class="font-semibold tracking-wide">CodeDomus</span>
+    <div>
+      <a href="/" class="flex items-center gap-2 transition-colors hover:text-(--color-accent)">
+        <img src="/favicon.svg" alt="CodeDomus logo" class="h-8 w-8" />
+        <span class="font-semibold tracking-wide">CodeDomus</span>
+      </a>
     </div>
 
     <nav class="flex gap-6 text-sm">
-      <a href="#features" class="hover:text-aureus transition">Funcionalidades</a>
-      <a href="/politica-privacidad" class="hover:text-aureus transition">Política de privacidad</a>
+      <!-- <a href="#features" class="hover:text-aureus transition">Funcionalidades</a> -->
+      <a
+        href="/politica-privacidad"
+        class="transition-colors hover:text-(--color-accent) focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-(--color-focus-outline)"
+        >Política de privacidad</a
+      >
     </nav>
 
-    <p class="text-xs opacity-70">
+    <p class="text-xs text-(--color-text-muted)">
       © 2025 Oriol Cortes · <a
         href="https://creativecommons.org/licenses/by-nc-nd/4.0/"
-        class="hover:text-aureus underline transition">CC BY-NC-ND 4.0</a
+        class="underline transition-colors hover:text-(--color-accent)">CC BY-NC-ND 4.0</a
       >
     </p>
   </div>
@@ -23,9 +29,18 @@
   .custom-gradient {
     background: linear-gradient(
       to bottom,
-      var(--color-parchment-white) 0%,
-      var(--color-forum-beige) 40%,
-      var(--color-forum-beige) 100%
+      var(--color-background-body) 0%,
+      var(--color-background-card) 50%,
+      var(--color-background-card) 100%
+    );
+  }
+
+  .dark .custom-gradient {
+    background: linear-gradient(
+      to bottom,
+      var(--color-background-body) 0%,
+      color-mix(in oklab, var(--color-background-card), white 6%) 50%,
+      color-mix(in oklab, var(--color-background-card), white 10%) 100%
     );
   }
 </style>

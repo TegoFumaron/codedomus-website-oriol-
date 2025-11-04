@@ -1,29 +1,52 @@
+---
+import ThemeSwitch from "./ThemeSwitch.astro";
+---
+
 <section
-  class="custom-gradient flex min-h-screen flex-col items-center justify-center gap-6 px-4 text-center"
+  class="custom-gradient flex min-h-screen flex-col items-center justify-center gap-6 px-4 text-center text-(--color-text-default)"
 >
+  <!-- Switch de tema arriba a la derecha -->
+  <div class="absolute top-4 right-4"><ThemeSwitch /></div>
   <img src="/favicon.svg" alt="CodeDomus logo" class="h-24 w-24" />
-  <h1 class="text-senate max-w-2xl text-5xl font-bold">
-    La <span class="text-imperial-red">casa del código</span> y tu punto de partida para dominarlo
+
+  <h1 class="max-w-2xl text-5xl leading-tight font-bold">
+    La <span class="text-(--color-accent)">casa del código</span> y tu punto de partida para dominarlo
   </h1>
-  <p class="max-w-xl text-xl">Cheatsheets y templates para aprender web development.</p>
+
+  <p class="max-w-xl text-xl text-(--color-text-muted)">
+    Cheatsheets y templates para aprender web development.
+  </p>
+
   <div class="mt-4 flex gap-4">
     <!-- <a href="#arena" class="">Entra en la Arena</a> -->
     <!-- <a href="#ludus" class="">Juegos</a> -->
     <a
-      href="#receptarium"
-      class="border-imperial text-imperial rounded-lg border-2 px-6 py-3 transition hover:bg-imperial-red/5 hover:text-aureus-gold"
-      >Explora el Receptarium</a
+      href="#features"
+      class="inline-flex items-center justify-center rounded-lg border-2 border-(--color-primary) px-6 py-3 text-(--color-primary) transition-colors hover:bg-(--color-primary) hover:text-(--color-primary-on) focus:outline-2 focus:outline-offset-2 focus:outline-(--color-focus-outline) dark:border-(--color-primary) dark:text-(--color-primary) dark:hover:bg-(--color-primary) dark:hover:text-(--color-primary-on)"
     >
+      Explorar recursos
+    </a>
   </div>
 </section>
 
 <style>
+  /* Gradiente con tokens semánticos (los valores cambian solos en dark si tus tokens lo hacen) */
   .custom-gradient {
     background: linear-gradient(
       to bottom,
-      var(--color-forum-beige) 0%,
-      var(--color-forum-beige) 80%,
-      var(--color-parchment-white) 100%
+      var(--color-background-body) 0%,
+      var(--color-background-body) 80%,
+      var(--color-background-card) 100%
+    );
+  }
+
+  /* Si prefieres forzar un ajuste específico en dark (opcional): */
+  .dark .custom-gradient {
+    background: linear-gradient(
+      to bottom,
+      var(--color-background-body) 0%,
+      var(--color-background-body) 70%,
+      var(--color-background-card) 100%
     );
   }
 </style>

@@ -1,0 +1,33 @@
+---
+import ThemeSwitch from "../components/ThemeSwitch.astro";
+import Layout from "./Layout.astro";
+const { title = "CodeDomus", children } = Astro.props;
+---
+
+<Layout title={title}>
+  <nav
+    class="sticky top-0 z-30 flex items-center justify-between gap-4 border-b border-(--color-border-default) bg-parchment-white/80 px-4 py-2 text-(--color-text-default) shadow-(--shadow-elevation-1) backdrop-blur supports-backdrop-filter:bg-(--color-background-card)/60 dark:border-(--color-border-default) dark:bg-(--color-background-card)/80 dark:supports-backdrop-filter:bg-(--color-background-card)/60"
+  >
+    <a
+      href="/"
+      class="flex items-center gap-2 text-xl font-bold text-(--color-primary) hover:opacity-80 focus-visible:outline focus-visible:outline-offset-2 focus-visible:outline-(--color-focus-outline)"
+    >
+      <img src="/favicon.svg" alt="CodeDomus" class="h-7 w-7" />
+      <span class="hidden sm:inline">CodeDomus</span>
+    </a>
+
+    <div class="flex items-center gap-4">
+      <a
+        href="/cheatsheets"
+        class="font-medium text-(--color-text-default) transition-colors hover:text-(--color-primary) dark:text-(--color-text-default) dark:hover:text-(--color-primary-hover)"
+        >Cheatsheets</a
+      >
+
+      <ThemeSwitch />
+    </div>
+  </nav>
+
+  <main>
+    <slot />
+  </main>
+</Layout>

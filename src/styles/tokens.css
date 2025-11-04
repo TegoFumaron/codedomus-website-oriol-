@@ -1,6 +1,6 @@
 /* This file contains the design tokens for the theme. It includes colors, shadows, and other design elements. */
 @theme {
-  /* Base colors */
+  /* 🎨 Base colors */
   --color-imperial-red: #c42b36;
   --color-legion-crimson: #9f212a;
   --color-senate-slate: #2f3e4b;
@@ -10,8 +10,11 @@
   --color-laurel-green: #2ea44f;
   --color-amber-standard: #d97706;
   --color-consular-scarlet: #b91c1c;
+  --color-bronze-ember: #b4893f;
+  --color-onyx-night: #101820;
+  --color-slate-fortress: #18232d;
 
-  /* Semantic tokens */
+  /* ☀️ Light (default) */
   --color-primary: var(--color-imperial-red);
   --color-primary-hover: var(--color-legion-crimson);
   --color-primary-on: var(--color-parchment-white);
@@ -30,4 +33,20 @@
 
   /* Shadows */
   --shadow-card: 0 2px 4px rgba(47, 62, 75, 0.07);
+}
+
+/* 🌙 Dark overrides (usados cuando html.dark está activo) */
+@layer theme {
+  .dark {
+    --color-primary: var(--color-aureus-gold);
+    --color-primary-hover: var(--color-bronze-ember);
+    --color-primary-on: var(--color-senate-slate);
+
+    --color-text-default: var(--color-parchment-white);
+    --color-text-on-dark: var(--color-parchment-white);
+
+    --color-background-body: var(--color-onyx-night);
+    --color-background-card: var(--color-slate-fortress);
+    --color-background-dark: var(--color-senate-slate);
+  }
 }

@@ -1,13 +1,21 @@
 ---
 import FeatureCard from "./FeatureCard.astro";
 const features = [
-  { icon: "📜", title: "Receptarium", description: "Hojas rápidas de sintaxis y patrones." },
-  { icon: "🏛️", title: "Fundamenta", description: "Boilerplates modernos para arrancar." },
+  {
+    icon: "📜",
+    title: "Cheatsheets",
+    description: "Tu colección de resúmenes y comandos clave",
+    url: "/cheatsheets",
+  },
+  // { icon: "🏛️", title: "Fundamenta", description: "Boilerplates modernos para arrancar." },
   // { icon: "🗡️", title: "Arena", description: "Retos semanales con leaderboard." },
 ];
 ---
 
-<section id="features" class="container mx-auto px-4 py-20">
+<section
+  id="features"
+  class="container mx-auto bg-background-body px-4 py-20 text-(--color-text-default) dark:bg-background-body dark:text-(--color-text-default)"
+>
   <div class="grid-cols-auto-fit grid gap-8">
     {features.map((f) => <FeatureCard {...f} />)}
   </div>

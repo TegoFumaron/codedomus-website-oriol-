@@ -1,4 +1,5 @@
 ---
+import Footer from "../components/Footer.astro";
 import "../styles/global.css";
 const { title = "CodeDomus" } = Astro.props;
 ---
@@ -11,8 +12,12 @@ const { title = "CodeDomus" } = Astro.props;
     <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
     <meta name="generator" content={Astro.generator} />
     <title>{title}</title>
+    <slot name="head" />
   </head>
-  <body class="bg-parchment-white font-sans text-senate-slate">
-    <slot />
+  <body class="flex min-h-screen flex-col bg-background-body font-sans text-(--color-text-default)">
+    <div class="flex-1">
+      <slot />
+    </div>
+    <Footer />
   </body>
 </html>
